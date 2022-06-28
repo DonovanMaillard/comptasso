@@ -1,0 +1,57 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+
+<div class="container">
+	<h1> Liste des opérations enregistrées </h1>
+
+  <a class="btn btn-outline-danger btn-right" href="{{ url_for('addMovement', type_operation='Dépense') }}"> <i class="fa fa-plus"></i> Ajouter une dépense </a>
+  <a class="btn btn-outline-success btn-right" href="{{ url_for('addMovement', type_operation='Recette') }}"> <i class="fa fa-plus"></i> Ajouter une recette </a>
+
+  <!-- Table des opérations -->
+  {% include 'shared/operations_table.html' %}
+
+
+	<!-- Pagination Links-->
+		<div class="text-right">
+    		<a href="{{ url_for('operations', page=Operations.prev_num) }}" class="btn btn-outline-dark 
+       {% if Operations.page == 1 %}disabled{% endif %}"> &laquo; </a>
+       <!-- Loop through the number of pages to display a link for each-->
+
+        {% for page_num in Operations.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+          {% if page_num %}
+          <!-- Check for the active page and set the link to "Active"-->
+            {% if Operations.page == page_num %}
+              <a href="{{ url_for('operations', page=page_num) }}"
+               class="btn btn-dark">
+                {{ page_num }}
+              </a>
+            {% else %}
+              <a href="{{ url_for('operations', page=page_num) }}"
+               class="btn btn-outline-dark">
+                {{ page_num }}
+              </a>
+            {% endif %}
+          {% else %}
+            ...
+          {% endif %}
+        {% endfor %}    <a href="{{ url_for('operations', page=Operations.next_num) }}"
+       class="btn btn-outline-dark 
+       {% if Operations.page == Operations.pages %}disabled{% endif %}">
+        &raquo;
+        </a>
+    </div>
+
+<p class="text-right mt-3"> Affichage de la page {{ Operations.page }} sur {{ Operations.pages }}</p>
+
+<a class="btn btn-success btn-right" href="{{ url_for('operationsCSV') }}"> <i class="fa fa-download"></i> Exporter toutes les opérations en csv </a>
+
+</div>
+
+<script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+{% endblock %}

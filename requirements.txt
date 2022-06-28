@@ -1,0 +1,14 @@
+flask
+flask_sqlalchemy
+psycopg2
+Flask-WTF
+Flask-Bootstrap4
+pdfkit
+
+
+
+
+
+Installer npm
+Installer Postgresql
+wkhtmltopdf

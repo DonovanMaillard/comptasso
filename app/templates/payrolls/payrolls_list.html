@@ -1,0 +1,46 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+
+<div class="container">
+
+  <h1>Liste des masses salariales</h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Salarié</th>
+        <th>Période du</th>
+        <th>au</th>
+        <th>Montant global</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+         
+    <tbody>
+      {% for payroll in payrolls %}
+      <tr>
+        <td>{{payroll.member_name}}</td>
+        <td>{{payroll.date_min_period}}</td>
+        <td>{{payroll.date_max_period}}</td>
+        <td>{{payroll.total_amount}}</td>
+        <td>
+          <div>
+            <div class="btn btn-group">
+              <a class="btn btn-info" href="#"> <i class="fa fa-eye"></i> </a>
+              <a class="btn btn-warning" href="#"> <i class="fa fa-edit"></i> </a>
+              <a class="btn btn-danger" data-bs-toggle="modal"> <i class="fa fa-trash"></i> </a>
+            </div>
+          </div>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <a class="btn btn-success" href="{{ url_for('addPayroll') }}"><i class="fa fa-plus"></i> Ajouter une masse salariale</a>
+
+  <a class="btn btn-success" href="{{ url_for('payrolls', id_member=1) }}"><i class="fa fa-plus"></i> Donovan Maillard</a>
+</div>
+</div>
+
+{% endblock %}
